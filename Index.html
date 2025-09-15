@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Amo Yihan 💖 | Romántica & Atrevida</title>
+    <!-- Google Fonts Cute & Románticas -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Baloo+2:wght@600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-pastel: #ffe1ef;
+            --rosa-fuerte: #ff69b4;
+            --rosa-medio: #ffc2dd;
+            --rosa-hello: #fff0f7;
+            --lila: #e5d4f7;
+            --dorado: #ffe5b4;
+            --blanco: #fff;
+            --gris-texto: #53344d;
+            --azul-suave: #dff8fe;
+            --fucsia: #ffb6c1;
+            --sombra: 0 4px 32px 0 rgba(255, 182, 193, 0.24);
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Baloo 2', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--rosa-pastel) 0%, var(--lila) 100%);
+            min-height: 100vh;
+            color: var(--gris-texto);
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, #fff 0 14%, transparent 18%),
+                radial-gradient(circle at 90% 80%, #ffb6c1 0 12%, transparent 16%),
+                radial-gradient(ellipse at 50% 65%, #ffc2dd 0 17%, transparent 24%),
+                radial-gradient(circle at 40% 10%, #e5d4f7 0 11%, transparent 14%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .container {
+            max-width: 430px;
+            margin: 0 auto;
+            padding: 0 7px;
+            position: relative;
+            z-index: 2;
+        }
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-top: 14px;
+        }
+        .lang-btn {
+            background: var(--rosa-medio);
+            border: none;
+            border-radius: 18px;
+            font-family: 'Baloo 2', sans-serif;
+            font-size: 1em;
+            padding: 4px 14px;
+            color: var(--rosa-fuerte);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lang-btn.active {
+            background: var(--fucsia);
+            color: var(--blanco);
+            font-weight: bold;
+        }
+        header {
+            text-align: center;
+            padding: 32px 0 17px 0;
+        }
+        .main-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.2rem;
+            color: var(--rosa-fuerte);
+            text-shadow: 1px 1px 9px #fff7, 0 2px 18px #ffcce0a0;
+            margin-bottom: 7px;
+        }
+        .subtitle {
+            font-size: 1.08rem;
+            margin-bottom: 14px;
+            color: var(--gris-texto);
+        }
+        .apodo-cute {
+            background: var(--dorado);
+            color: var(--rosa-fuerte);
+            padding: 2px 9px;
+            border-radius: 16px;
+            font-size: 1.05em;
+            box-shadow: 0 2px 12px #ffe5b4a2;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        .contador-dias {
+            background: var(--rosa-medio);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px #ffc0cb3b;
+            text-align: center;
+            margin: 16px 0 22px 0;
+            padding: 13px 10px;
+        }
+        .cont-label {
+            font-family: 'Pacifico', cursive;
+            color: var(--rosa-fuerte);
+            font-size: 1.12em;
+        }
+        .cont-num {
+            font-size: 1.3em;
+            color: var(--fucsia);
+            margin: 5px 0 2px 0;
+            letter-spacing: 2px;
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+        }
+        /* Galería de fotos */
+        .galeria-romantica {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 16px 0 28px 0;
+        }
+        .gal-foto {
+            width: 82px;
+            height: 82px;
+            background: var(--blanco);
+            border-radius: 50%;
+            box-shadow: 0 4px 15px #ffb6c137;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: latido 2.5s infinite;
+            border: 2.5px solid var(--rosa-medio);
+            transition: box-shadow .2s, transform .2s;
+        }
+        .gal-foto:hover {
+            box-shadow: 0 8px 20px #ffb6c1a8;
+            transform: scale(1.08);
+        }
+        .gal-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        /* Pantalla completa foto */
+        .foto-modal-bg {
+            position: fixed;
+            inset: 0;
+            background: #fff8f9ee;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn .7s;
+        }
+        .foto-modal-img {
+            width: 95vw;
+            max-width: 380px;
+            border-radius: 38px;
+            box-shadow: 0 6px 38px #ffb6c1b8;
+            border: 4px solid var(--fucsia);
+            animation: zoomInFoto .6s;
+            background: var(--rosa-pastel);
+        }
+        .foto-modal-frase {
+            margin-top: 18px;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.13em;
+            color: var(--rosa-fuerte);
+            text-align: center;
+            padding: 0 12px;
+        }
+        .foto-modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: var(--rosa-medio);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.7em;
+            color: var(--rosa-fuerte);
+            cursor: pointer;
+            box-shadow: 0 2px 10px #ffb6c1a4;
+        }
+        .foto-modal-nav {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 3;
+        }
+        .foto-modal-arrow {
+            background: var(--rosa-medio);
+            border: none;
+            border-radius: 50%;
+            font-size: 2em;
+            color: var(--rosa-fuerte);
+            cursor: pointer;
+            box-shadow: 0 2px 10px #ffb6c1a4;
+            padding: 0 8px;
+            opacity: .7;
+            transition: opacity .2s;
+        }
+        .foto-modal-arrow:hover {opacity:1;}
+        @keyframes zoomInFoto {
+            from { opacity: 0; transform: scale(0.7);}
+            to { opacity: 1; transform: scale(1);}
+        }
+        @keyframes fadeIn {
+            from { opacity: 0;}
+            to { opacity: 1;}
+        }
+        @keyframes latido {
+            0%,100% { transform: scale(1);}
+            20% { transform: scale(1.07);}
+            40% { transform: scale(0.96);}
+            60% { transform: scale(1.06);}
+            80% { transform: scale(0.99);}
+        }
+        /* Timeline romántico */
+        .timeline {
+            margin: 18px 0 0 0;
+            padding-left: 0;
+        }
+        .timeline-event {
+            background: var(--lila);
+            border-radius: 20px;
+            margin-bottom: 19px;
+            box-shadow: var(--sombra);
+            padding: 15px 13px 9px 13px;
+            animation: fadeInUp 1s;
+            position: relative;
+        }
+        .event-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.15rem;
+            color: var(--rosa-fuerte);
+            margin-bottom: 3px;
+        }
+        .event-text {
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+        /* Cartas de amor */
+        .carta-sorpresa {
+            background: var(--blanco);
+            border-radius: 25px;
+            box-shadow: var(--sombra);
+            margin: 26px 0 17px 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(.18,.89,.32,1.28);
+            max-height: 65px;
+            cursor: pointer;
+        }
+        .carta-sorpresa.abierta {
+            max-height: 550px;
+            padding: 22px 13px 15px 13px;
+        }
+        .carta-titulo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.19rem;
+            color: var(--fucsia);
+            padding: 13px 0 7px 0;
+            cursor: pointer;
+            transition: color .26s;
+        }
+        .carta-sorpresa.abierta .carta-titulo {
+            color: var(--rosa-fuerte);
+            font-size: 1.19rem;
+        }
+        .carta-body {
+            opacity: 0;
+            font-size: 1.08em;
+            color: var(--gris-texto);
+            transition: opacity .7s;
+            margin-top: 10px;
+            padding-bottom: 8px;
+        }
+        .carta-sorpresa.abierta .carta-body {
+            opacity: 1;
+        }
+        .firma {
+            text-align: right;
+            color: var(--rosa-fuerte);
+            font-family: 'Pacifico', cursive;
+            font-size: 1em;
+            margin-top: 18px;
+            padding-right: 10px;
+        }
+        /* Cumpleaños dinámico */
+        .birthday-cake {
+            text-align: center;
+            margin: 32px 0 22px 0;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        .cake-emoji {
+            font-size: 4.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .cake-emoji:hover {
+            transform: scale(1.1);
+        }
+        .candles {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 22px 0 0 0;
+        }
+        .candle {
+            width: 12px;
+            height: 38px;
+            background: #ffd700;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: -9px;
+        }
+        .candle::before {
+            content: '🔥';
+            position: absolute;
+            top: -17px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.25rem;
+            animation: flicker 1s ease-in-out infinite alternate;
+        }
+        .candle.blown::before {
+            content: '💨';
+            animation: none;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) rotate(-2deg); }
+            100% { transform: translateX(-50%) rotate(2deg); }
+        }
+        /* Frases sorpresa y corazones animados */
+        .bubble-frase {
+            position: fixed;
+            z-index: 1111;
+            padding: 11px 21px;
+            background: linear-gradient(90deg, #ffe4f0 60%, #ffd1dc 100%);
+            color: var(--rosa-fuerte);
+            border-radius: 30px;
+            font-size: 1.13em;
+            font-family: 'Pacifico', cursive;
+            opacity: 0.95;
+            pointer-events: none;
+            animation: flotarFrase 4s cubic-bezier(.8,-0.1,.8,1.2) forwards;
+            box-shadow: 0 4px 15px #ffb6c146;
+        }
+        @keyframes flotarFrase {
+            from { opacity: 0; transform: translateY(60px) scale(0.8);}
+            25% { opacity: 1;}
+            75% { opacity: 1;}
+            to { opacity: 0; transform: translateY(-60px) scale(1.08);}
+        }
+        .corazon-float {
+            position: fixed;
+            z-index: 999;
+            font-size: 2.2em;
+            pointer-events: none;
+            animation: flotarCorazon 4.5s linear forwards;
+        }
+        @keyframes flotarCorazon {
+            0% { opacity: 0; transform: translateY(80vh) scale(0.7) rotate(0deg);}
+            5% { opacity: 0.85;}
+            90% { opacity: 1;}
+            100% { opacity: 0; transform: translateY(-10vh) scale(1.1) rotate(27deg);}
+        }
+        /* Música (YouTube mini-player flotante) */
+        .music-floater {
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .music-btn {
+            background: radial-gradient(circle, #ffe4f0 60%, #ffb6c1 100%);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 24px #ffb6c1a6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            font-size: 2.2em;
+            color: var(--rosa-fuerte);
+            position: relative;
+            transition: box-shadow .2s;
+        }
+        .music-btn.active {
+            box-shadow: 0 0 0 5px #ffb6c1c0, 0 4px 24px #ffb6c1a6;
+            animation: brillo-music 1.7s infinite;
+        }
+        @keyframes brillo-music {
+            0%, 100% { box-shadow: 0 0 0 5px #ffb6c1c0, 0 4px 24px #ffb6c1a6; }
+            50% { box-shadow: 0 0 0 18px #ffe4f066, 0 4px 24px #ffb6c1a6; }
+        }
+        .music-mini {
+            margin: 5px 0 0 0;
+            width: 82px;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px #ffb6c1a3;
+            display: none;
+            background: #fff;
+        }
+        .music-mini.active {
+            display: block;
+            animation: fadeInUp 1s;
+        }
+        @media (max-width: 600px) {
+            .container { max-width: 99vw;}
+            .main-title { font-size: 2rem;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lang-toggle">
+            <button class="lang-btn active" id="btnEs" onclick="switchLang('es')">Español</button>
+            <button class="lang-btn" id="btnZh" onclick="switchLang('zh')">中文</button>
+        </div>
+        <header>
+            <div class="main-title" data-es="Te amo, Mi Baby Puppy Yihan 💖" data-zh="我爱你，我的小狗狗艺涵 💖">Te amo, Mi Baby Puppy Yihan 💖</div>
+            <div class="subtitle" data-es="De Gustavo, desde Chile 🇨🇱 a China 🇨🇳" data-zh="来自智利的 Gustavo，送给中国的你 🇨🇱➡️🇨🇳">De Gustavo, desde Chile 🇨🇱 a China 🇨🇳</div>
+        </header>
+        <div class="contador-dias">
+            <div class="cont-label" data-es="Días juntos desde el primer 'hola'" data-zh="自第一次“你好”以来的日子">Días juntos desde el primer 'hola'</div>
+            <div class="cont-num" id="diasJuntos"></div>
+        </div>
+
+        <!-- Galería de fotos romántica -->
+        <div class="galeria-romantica">
+            <div class="gal-foto" onclick="showFotoModal(0)">
+                <img src="https://i.imgur.com/LcVzSWh.jpeg" alt="Ella durmiendo en videollamada">
+            </div>
+            <div class="gal-foto" onclick="showFotoModal(1)">
+                <img src="https://i.imgur.com/l0JOrVf.jpeg" alt="Ella enojada">
+            </div>
+            <div class="gal-foto" onclick="showFotoModal(2)">
+                <img src="https://i.imgur.com/6iNpmLW.jpeg" alt="Ella preciosa">
+            </div>
+            <div class="gal-foto" onclick="showFotoModal(3)">
+                <img src="https://i.imgur.com/dRnSzwm.jpeg" alt="Yo triste">
+            </div>
+        </div>
+
+        <!-- Timeline romántico -->
+        <section class="timeline">
+            <div class="timeline-event">
+                <div class="event-title" data-es="Nuestro primer sueño juntos" data-zh="我们的第一个梦在一起">Nuestro primer sueño juntos</div>
+                <div class="event-text" data-es="Aquella noche, verte dormir en videollamada me hizo sentir el amor más puro y tierno. Supe que, aunque lejos, nuestros corazones ya dormían abrazados." data-zh="那晚，看到你在视频通话中入睡，让我感受到最纯真的爱。即使相隔遥远，我们的心早已拥抱在一起。">Aquella noche, verte dormir en videollamada me hizo sentir el amor más puro y tierno...</div>
+            </div>
+            <div class="timeline-event">
+                <div class="event-title" data-es="Incluso enojada, eres adorable" data-zh="你生气时也很可爱">Incluso enojada, eres adorable</div>
+                <div class="event-text" data-es="Tus enojos son tan lindos como tu sonrisa, mi bebé. Hasta tus caritas molestas me roban el corazón, ¡te amo en cada emoción!" data-zh="你的生气和你的微笑一样可爱，宝贝。你的每一个表情都让我心动，每种情绪都让我更加爱你！">Tus enojos son tan lindos...</div>
+            </div>
+            <div class="timeline-event">
+                <div class="event-title" data-es="Eres mi princesa hermosa" data-zh="你是我的美丽公主">Eres mi princesa hermosa</div>
+                <div class="event-text" data-es="Cuando te veo así de preciosa, mi mundo se detiene y solo quiero cuidarte siempre. Gracias por dejarme amarte cada día." data-zh="看到你如此美丽，我的世界都停止了，只想永远守护你。谢谢你让我每天都可以爱你。">Cuando te veo así de preciosa...</div>
+            </div>
+            <div class="timeline-event">
+                <div class="event-title" data-es="Te extraño (me pongo triste)" data-zh="我很想你（有时会难过）">Te extraño (me pongo triste)</div>
+                <div class="event-text" data-es="A veces me invade la tristeza por la distancia, pero recordar que existes, que eres mi baby puppy, me llena de esperanza y amor." data-zh="有时因为距离而感到难过，但想到你是我的小狗狗，我就充满了希望和爱。">A veces me invade la tristeza...</div>
+            </div>
+        </section>
+
+        <!-- Cartas románticas sorpresa -->
+        <div class="carta-sorpresa" onclick="toggleCarta(this)">
+            <div class="carta-titulo" data-es="Carta romántica para ti 💌" data-zh="给你的浪漫情书 💌">Carta romántica para ti 💌</div>
+            <div class="carta-body" data-es="Mi querida Yihan,<br><br>Hoy celebro tu existencia y nuestro amor. Desde el 11 de marzo de 2025 hasta este instante, cada día contigo es mi mayor fortuna.<br><br>Eres mi baby puppy, mi compañera, mi motivo de sonreír y soñar. Aunque nos separen miles de kilómetros, nuestras almas están abrazadas más allá del tiempo y el espacio.<br><br>Te amo en cada idioma, en cada latido, en cada deseo. Que este cumpleaños y cada día sientas mi amor infinito.<br><br><span class='firma'>Con todo mi corazón,<br>Gustavo 💗</span>" data-zh="我亲爱的艺涵，<br><br>今天我庆祝你的存在和我们的爱情。从2025年3月11日到此刻，每一天和你在一起都是我最大的幸运。<br><br>你是我的小狗狗，我的伴侣，我微笑和梦想的理由。虽然我们相隔千里，但我们的灵魂已经跨越了时间和空间紧紧相拥。<br><br>我用所有语言、每一次心跳、每一个愿望去爱你。愿你每一天都能感受到我无尽的爱。<br><br><span class='firma'>用全部的心，<br>Gustavo 💗</span>">
+                Mi querida Yihan,<br><br>
+                Hoy celebro tu existencia y nuestro amor. Desde el 11 de marzo de 2025 hasta este instante, cada día contigo es mi mayor fortuna.<br><br>
+                Eres mi baby puppy, mi compañera, mi motivo de sonreír y soñar. Aunque nos separen miles de kilómetros, nuestras almas están abrazadas más allá del tiempo y el espacio.<br><br>
+                Te amo en cada idioma, en cada latido, en cada deseo. Que este cumpleaños y cada día sientas mi amor infinito.<br><br>
+                <span class="firma">Con todo mi corazón,<br>Gustavo 💗</span>
+            </div>
+        </div>
+        <div class="carta-sorpresa" onclick="toggleCarta(this)">
+            <div class="carta-titulo" data-es="Un deseo especial para mi bebé ✨" data-zh="给我的宝贝的特别祝福 ✨">Un deseo especial para mi bebé ✨</div>
+            <div class="carta-body" data-es="Deseo que la vida te consienta siempre, que tus sueños florezcan y que nunca dudes de lo especial que eres para mí.<br><br>我的小狗狗，我的爱人，愿你每天都幸福快乐，无论距离多远，我的心都和你在一起。<br><br>Feliz cumpleaños, mi amor eterno.<br><span class='firma'>Te adoro,<br>Tu Gustavo 🐶💕</span>" data-zh="我希望生活永远宠爱你，愿你的梦想开花结果，永远不要怀疑你在我心中的特别。<br><br>我的小狗狗，我的爱人，愿你每天都幸福快乐，无论距离多远，我的心都和你在一起。<br><br>生日快乐，我的永恒之爱。<br><span class='firma'>我爱你，<br>你的 Gustavo 🐶💕</span>">
+                Deseo que la vida te consienta siempre, que tus sueños florezcan y que nunca dudes de lo especial que eres para mí.<br><br>
+                我的小狗狗，我的爱人，愿你每天都幸福快乐，无论距离多远，我的心都和你在一起。<br><br>
+                Feliz cumpleaños, mi amor eterno.<br>
+                <span class="firma">Te adoro,<br>Tu Gustavo 🐶💕</span>
+            </div>
+        </div>
+
+        <!-- Cumpleaños dinámico: Sopla las velas -->
+        <div class="birthday-cake">
+            <div class="cake-emoji" onclick="celebrateBirthday()">🎂</div>
+            <p style="color: #ff69b4; margin-top: 10px; font-family: 'Pacifico', cursive; font-size: 1.13rem;" data-es="¡Haz clic en el pastel!" data-zh="点击蛋糕！">¡Haz clic en el pastel!</p>
+            <div class="candles">
+                <div class="candle" onclick="blowCandle(this)"></div>
+                <div class="candle" onclick="blowCandle(this)"></div>
+                <div class="candle" onclick="blowCandle(this)"></div>
+                <div class="candle" onclick="blowCandle(this)"></div>
+                <div class="candle" onclick="blowCandle(this)"></div>
+            </div>
+            <p style="color: #ff69b4; font-family: 'Pacifico', cursive; font-size:1.07rem;" data-es="¡Sopla las velas tocándolas!" data-zh="点击蜡烛来吹灭它们！">¡Sopla las velas tocándolas!</p>
+        </div>
+    </div>
+
+    <!-- Botón flotante música y mini player -->
+    <div class="music-floater" id="musicFloater">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Reproducir/Pausar canción">
+            <span id="musicIcon">▶️</span>
+        </button>
+        <div class="music-mini" id="musicMini">
+            <iframe id="ytplayer"
+                width="82" height="48"
+                src="https://www.youtube.com/embed/HKBNJHmJ1K0?enablejsapi=1&autoplay=1&loop=1&playlist=HKBNJHmJ1K0"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Modal de foto fullscreen/carrusel -->
+    <div id="fotoModal" style="display:none"></div>
+
+    <!-- Frases flotantes y corazones serán insertados por JS -->
+    <script>
+    // Traducción dinámica
+    let currentLang = "es";
+    function switchLang(lang) {
+        currentLang = lang;
+        document.getElementById('btnEs').classList.toggle('active', lang === 'es');
+        document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
+        document.querySelectorAll('[data-es][data-zh]').forEach(el => {
+            el.innerHTML = el.getAttribute('data-' + lang);
+        });
+    }
+
+    // Contador de días juntos (desde 2025-03-11 hasta 2025-09-16 hora de China)
+    function calcDiasJuntos() {
+        let start = new Date('2025-03-11T00:00:00+08:00');
+        let now = new Date('2025-09-16T04:00:23+08:00');
+        let diffMs = now - start;
+        let days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        let months = Math.floor(days/30.44);
+        let years = Math.floor(months/12);
+        let leftMonths = months % 12;
+        let leftDays = days - months*30.44;
+        let hours = Math.floor((diffMs/(1000*60*60))%24);
+        let textEs = years ? `${years} años, ` : "";
+        textEs += leftMonths ? `${leftMonths} meses, ` : "";
+        textEs += `${Math.floor(leftDays)} días, ${hours} horas`;
+        let textZh = "";
+        if(years) textZh += `${years}年, `;
+        if(leftMonths) textZh += `${leftMonths}个月, `;
+        textZh += `${Math.floor(leftDays)}天, ${hours}小时`;
+        document.getElementById('diasJuntos').setAttribute('data-es', textEs);
+        document.getElementById('diasJuntos').setAttribute('data-zh', textZh);
+        document.getElementById('diasJuntos').innerHTML = currentLang === 'es' ? textEs : textZh;
+    }
+    calcDiasJuntos();
+
+    // Galería de fotos fullscreen/carrusel
+    const fotos = [
+        {
+            src: 'https://i.imgur.com/LcVzSWh.jpeg',
+            fraseEs: 'Dormir contigo, aunque sea en videollamada, es mi momento más tierno 💗 Quiero besarte hasta que te quedes dormida.',
+            fraseZh: '和你一起睡觉，即使是在视频通话中，也是我最温柔的片刻 💗 我想吻你直到你睡着。'
+        },
+        {
+            src: 'https://i.imgur.com/l0JOrVf.jpeg',
+            fraseEs: 'Incluso cuando te enojas, eres irresistible y adorable 😍. Quiero comerte la boca a besos.',
+            fraseZh: '即使你生气的时候，也很可爱，让我无法抗拒 😍。我想疯狂亲吻你的嘴唇。'
+        },
+        {
+            src: 'https://i.imgur.com/6iNpmLW.jpeg',
+            fraseEs: 'Eres mi princesa hermosa, siempre te cuidaré 👑. Quiero dejar tus piernas temblando en tu próximo cumpleaños.',
+            fraseZh: '你是我的美丽公主，我会永远守护你 👑。下次生日我要让你的双腿颤抖。'
+        },
+        {
+            src: 'https://i.imgur.com/dRnSzwm.jpeg',
+            fraseEs: 'Cuando estoy triste, pensar en ti me llena de amor y deseo 💖. Quiero hacerte mía una y mil veces.',
+            fraseZh: '当我难过时，想到你让我充满爱和渴望 💖。我想一次又一次地拥有你。'
+        }
+    ];
+    let fotoIdx = 0;
+    function showFotoModal(idx) {
+        fotoIdx = idx;
+        let f = fotos[idx];
+        let modal = document.getElementById('fotoModal');
+        modal.innerHTML = `
+            <div class="foto-modal-bg" onclick="closeFotoModal(event)">
+                <button class="foto-modal-close" onclick="closeFotoModal(event)">×</button>
+                <div class="foto-modal-nav">
+                    <button class="foto-modal-arrow" onclick="prevFoto(event)">❮</button>
+                    <button class="foto-modal-arrow" onclick="nextFoto(event)">❯</button>
+                </div>
+                <img class="foto-modal-img" src="${f.src}">
+                <div class="foto-modal-frase">${currentLang=="es"?f.fraseEs:f.fraseZh}</div>
+            </div>
+        `;
+        modal.style.display = "flex";
+    }
+    function prevFoto(e){ e.stopPropagation(); fotoIdx=(fotoIdx+fotos.length-1)%fotos.length; showFotoModal(fotoIdx);}
+    function nextFoto(e){ e.stopPropagation(); fotoIdx=(fotoIdx+1)%fotos.length; showFotoModal(fotoIdx);}
+    function closeFotoModal(e) {
+        if (e.target.classList.contains("foto-modal-bg") || e.target.classList.contains("foto-modal-close")) {
+            document.getElementById('fotoModal').style.display = "none";
+        }
+    }
+
+    // Cartas románticas sorpresa
+    function toggleCarta(card) {
+        const abierta = card.classList.contains("abierta");
+        document.querySelectorAll('.carta-sorpresa').forEach(el => el.classList.remove('abierta'));
+        if (!abierta) {
+            card.classList.add("abierta");
+            setTimeout(() => { lanzarCorazones(12); }, 320);
+            setTimeout(() => { showBubbleFrase(currentLang=="es"?"Te amo, mi baby puppy 💖":"我爱你，我的小狗狗 💖"); }, 900);
+        }
+        // Traducción
+        let titulo = card.querySelector('.carta-titulo');
+        let body = card.querySelector('.carta-body');
+        if(titulo && body) {
+            titulo.innerHTML = titulo.getAttribute('data-'+currentLang);
+            body.innerHTML = body.getAttribute('data-'+currentLang);
+        }
+    }
+    document.querySelectorAll('.carta-sorpresa').forEach(card=>{
+        card.querySelector('.carta-titulo').innerHTML = card.querySelector('.carta-titulo').getAttribute('data-'+currentLang);
+        card.querySelector('.carta-body').innerHTML = card.querySelector('.carta-body').getAttribute('data-'+currentLang);
+    });
+
+    // Cumpleaños dinámico: sopla las velas
+    function celebrateBirthday() {
+        lanzarCorazones(13);
+        showBubbleFrase(currentLang=="es"?"¡Feliz cumpleaños, mi amor! 🎂":"生日快乐，我的爱！🎂");
+        // Confeti animado
+        for (let i = 0; i < 36; i++) {
+            setTimeout(() => {
+                createConfetti();
+            }, i * 60);
+        }
+    }
+    function blowCandle(candle) {
+        candle.classList.add('blown');
+        setTimeout(() => {
+            candle.classList.remove('blown');
+        }, 2900);
+        lanzarCorazones(5);
+        showBubbleFrase(currentLang=="es"?"Sopla tus deseos, bebé":"许下你的愿望，宝贝");
+    }
+    function createConfetti() {
+        const container = document.body;
+        const confetti = document.createElement('div');
+        const colors = ['🎉', '🎊', '✨', '🌟', '💫'];
+        confetti.textContent = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.position = 'fixed';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-28px';
+        confetti.style.fontSize = '2.1rem';
+        confetti.style.animation = 'flotarCorazon 3s ease-out forwards';
+        confetti.style.pointerEvents = 'none';
+        container.appendChild(confetti);
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+
+    // Lluvia de corazones
+    function lanzarCorazones(num) {
+        const hearts = ['💖','💕','💗','💝','❤️','🌸','💐','💞'];
+        for (let i = 0; i < num; i++) {
+            setTimeout(() => {
+                const cora = document.createElement("div");
+                cora.className = "corazon-float";
+                cora.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                cora.style.left = (Math.random() * 80 + 7) + "%";
+                cora.style.fontSize = (Math.random()*1.2 + 1.3) + "em";
+                cora.style.top = "70vh";
+                document.body.appendChild(cora);
+                setTimeout(() => cora.remove(), 4900);
+            }, i*110);
+        }
+    }
+
+    // Frases flotantes de amor y picaronas
+    const frasesSorpresa = [
+        {es:"Te amo, mi baby puppy 💕", zh:"我爱你，我的小狗狗 💕"},
+        {es:"Eres mi sueño hecho realidad 🌸", zh:"你是我梦想成真 🌸"},
+        {es:"Quiero frotarte hasta que no puedas más 🥵", zh:"我想一直摩擦你，直到你受不了 🥵"},
+        {es:"Quiero hacerte mía, una y mil veces 💋", zh:"我想一次又一次地拥有你 💋"},
+        {es:"Quiero lamerte toda 😈", zh:"我想舔遍你的全身 😈"},
+        {es:"Te quiero comer la boca a besos 😈", zh:"我要疯狂亲吻你的嘴唇 😈"},
+        {es:"Quiero dejar tus piernas temblando 🔥", zh:"我要让你的双腿颤抖 🔥"},
+        {es:"Quiero perderme en tu cuerpo ✨", zh:"我想沉醉在你的身体 ✨"},
+        {es:"Me muero por sentirte cerca 👀", zh:"我渴望感受你的亲近 👀"},
+        {es:"En tu próximo cumpleaños te haré temblar 💦", zh:"下次生日我要让你颤抖 💦"},
+        {es:"Besitos volando hasta China 😘", zh:"飞向中国的吻 😘"},
+        {es:"Quiero hacerte gritar mi nombre 💥", zh:"我想让你大声喊我的名字 💥"},
+        {es:"Quiero acariciar cada parte de ti 🫦", zh:"我想爱抚你身体的每一寸 🫦"},
+        {es:"No existe distancia para nuestro amor ✨", zh:"我们的爱情没有距离 ✨"},
+        {es:"你是我的唯一 💞", zh:"你是我的唯一 💞"}
+    ];
+    function showBubbleFrase(text) {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble-frase";
+        bubble.textContent = text;
+        bubble.style.left = (Math.random()*60+12)+"vw";
+        bubble.style.top = (Math.random()*32+9)+"vh";
+        document.body.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 4000);
+    }
+    function randomMensajeAmor(force=false) {
+        if (force) {
+            let fr = frasesSorpresa[Math.floor(Math.random()*frasesSorpresa.length)];
+            showBubbleFrase(fr[currentLang]);
+        }
+        if (Math.random() < 0.33) {
+            let fr = frasesSorpresa[Math.floor(Math.random()*frasesSorpresa.length)];
+            showBubbleFrase(fr[currentLang]);
+        }
+    }
+    setInterval(randomMensajeAmor, 4700);
+
+    // Música (YouTube API)
+    let musicOn = false;
+    let player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('ytplayer', {
+            events: {
+                'onReady': function() { if (musicOn) player.playVideo(); }
+            }
+        });
+    }
+    function toggleMusic() {
+        musicOn = !musicOn;
+        const btn = document.getElementById('musicBtn');
+        const icon = document.getElementById('musicIcon');
+        const mini = document.getElementById('musicMini');
+        if (musicOn) {
+            btn.classList.add('active');
+            icon.textContent = "⏸️";
+            mini.classList.add('active');
+            if (player && player.playVideo) { player.playVideo(); }
+        } else {
+            btn.classList.remove('active');
+            icon.textContent = "▶️";
+            mini.classList.remove('active');
+            if (player && player.pauseVideo) { player.pauseVideo(); }
+        }
+    }
+    // Cargar API YouTube
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+
+    // Efecto inicial
+    window.onload = () => {
+        setTimeout(() => lanzarCorazones(13), 900);
+        setTimeout(calcDiasJuntos, 1200);
+        switchLang(currentLang);
+    };
+    </script>
+</body>
+</html>
